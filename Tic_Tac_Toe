@@ -1,0 +1,99 @@
+list_items = ['_','_','_','_','_','_','_','_','_']
+
+#make the grid
+def print_board(items):
+    print('---------')
+    print("|", items[0], items[1], items[2], "|")
+    print("|", items[3], items[4], items[5], "|")
+    print("|", items[6], items[7], items[8], "|")
+    print('---------')
+
+print_board(list_items)
+
+
+
+#check winner function
+def check_winner(items):
+    x_wins = (
+        all(item == "X" for item in items[:3]) or
+        all(item == "X" for item in items[3:6]) or
+        all(item == "X" for item in [items[0], items[3], items[6]]) or
+        all(item == "X" for item in [items[1], items[4], items[7]]) or
+        all(item == "X" for item in [items[2], items[5], items[8]]) or
+        all(item == "X" for item in [items[0], items[4], items[8]]) or
+        all(item == "X" for item in [items[2], items[4], items[6]])
+    )
+    o_wins = (
+        all(item == "O" for item in items[:3]) or
+        all(item == "O" for item in items[3:6]) or
+        all(item == "O" for item in [items[0], items[3], items[6]]) or
+        all(item == "O" for item in [items[1], items[4], items[7]]) or
+        all(item == "O" for item in [items[2], items[5], items[8]]) or
+        all(item == "O" for item in [items[0], items[4], items[8]]) or
+        all(item == "O" for item in [items[2], items[4], items[6]])
+    )
+
+    if x_wins:
+        print("X wins!!!!! Woo Hoo!")
+        return True
+    elif o_wins:
+        print("O wins!!!!! Woo Hoo!")
+        return True
+    elif "_" not in items:
+        print("Draw, isn't that fun?")
+        return True
+    return False
+
+# Count the number of X's and O's
+count_x = list_items.count('X')
+count_o = list_items.count('O')
+# check player turn
+player_turn = 'X'
+
+# Action loop
+while True:
+    try:
+
+        # Announce player turn
+        print(f"{player_turn} it is your turn.")
+
+        # take inputs for new placements on the 3x3 grid
+        x, y = map(int, input("Make a move. Enter the x,y coordinates(1-3) separated by a space: ").split())
+
+        # Validate if the coordinates are in the valid range
+        if x < 1 or x > 3 or y < 1 or y > 3:
+            print("Coordinates should be from 1 to 3!")
+            continue
+
+        # convert the x, y into the index number
+        index = (x - 1) * 3 + (y - 1)
+
+        # Check if the cell is already occupied
+        if list_items[index] != '_':
+            print("This cell is occupied! Choose another one!")
+            continue
+
+        # Update the list with the player's move
+        list_items[index] = player_turn
+        print_board(list_items)
+
+        # Check for a winner
+        if check_winner(list_items):
+            break
+
+        # Switch the player's turn
+        if player_turn == 'X':
+            player_turn = 'O'
+            count_x += 1
+        else:
+            player_turn = 'X'
+            count_o += 1
+
+
+
+    except ValueError:
+        print("You should enter numbers!")
+
+# Output the field after the user's move
+print_board(list_items)
+
