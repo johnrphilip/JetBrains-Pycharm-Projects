@@ -1,4 +1,4 @@
-# JetBrains Python Certification Course
+# Pycharm Python Certification Course
 
 ## Overview
 
@@ -25,7 +25,7 @@ This repository contains various projects developed as part of the JetBrains Pyt
   
 ### Programming Languages
 
-Primarily, Python is the language of instruction for this course, covering:
+Python is the language of instruction for this course, covering:
 
 - Basics and Essentials
 - Code Quality
